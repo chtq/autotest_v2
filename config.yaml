@@ -15,6 +15,11 @@
         :cc:   ['chyh1990@gmail.com']
         :daily_to: ['ucore_dev1@googlegroups.com', 'chyh1990@gmail.com']
 
+:registration:
+        :frontend_enable: true
+        :backend_enable: true
+        :queue: "registration"
+
 :jobs:
         :daily_report: ["00:00"]
         :automerge:
