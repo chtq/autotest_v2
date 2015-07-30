@@ -1,0 +1,64 @@
+<h1>Test Result:
+	<% if @report[:ok]=="OK" %>
+		<font color=green>OK</font>
+	<% else %>
+		<font color=red><%= @report[:ok] %></font>
+	<% end %>
+</h1>
+<h2><a href="/repo/<%= @repo %>/"><%= @repo %></a> <small><%= h "#{@report[:ref].first}" %></small></h2>
+
+<table class="table table-bordered">
+	<tr>
+		<td><strong>Ref</strong></td>
+		<td><%= h @report[:ref].first %></td>
+	</tr>
+	<tr>
+		<td><strong>HEAD</strong></td>
+		<td><%= h @report[:ref].last  %></td>
+	</tr>
+	<tr>
+		<td rowspan=<%= @report[:result].count+1 %> ><strong>Result</strong></td>
+		<td>Phrase</td>
+		<td>Time/sec</td>
+		<td>Exitcode</td>
+	</tr>
+	<% @report[:result].each_with_index do |e,i| %>
+		<tr>
+			<td><a href="#<%= e[:name] %>"><%= e[:name] %></a></td></td>
+			<td><%= e[:time] %></td></td>
+			<td><%= e[:result][:status] %></td></td>
+	<% end %>
+</table>
+
+<hr>
+
+<table id="commits" class="table table-bordered table-striped">
+	<thead>
+	<th>ID</th>
+	<th>Author</th>
+	<th>Commit Date</th>
+	<th>Message</th>
+	</thead>
+	<tbody>
+	<% @report[:filter_commits].first(10).each do |c| %>
+       <tr>
+       <td><%= c[:id][0..6] %></td>
+       <td><%= h c[:author] %></td>
+       <td><%= c[:committed_date] %></td>
+       <td><%= h (tr c[:message], 40) %></td>
+       </tr>
+       <% end %>
+       </tbody>
+</table>
+
+<h2>Output</h2>
+<% @report[:result].each do |e| %>
+       <h3 id="<%= e[:name] %>"><%= e[:name] %></h3>
+	<pre>
+<%= format e[:name],@repo, @tid, e[:result][:output] %></pre>
+	<hr>
+<% end %>
+
+<!-- Local Variables: -->
+<!-- mode: html -->
+<!-- End: -->

@@ -1,0 +1,20 @@
+.line-warning {
+	color: #ff7f00;
+}
+
+.line-error {
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.line-ok {
+	color: #007f00;
+}
+
+.repo-list {
+	font-size: 24px
+}
+
+.repo-list li {
+	padding-bottom: 7px
+}

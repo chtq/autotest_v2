@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	setTimeout("location.reload()",30000);
+</script>
+<div class="hero-unit">
+<h1>Git-AutoTest System v2</h1><br>
+<p>This is a simple Git-based autotesting system, special configured for testing ucore labs.</p>
+<p>
+Copyright (C) 2013 Yuheng Chen <br>
+Copyright (C) 2014-2015 Junjie Mao
+</p>
+<p>
+ <a href="https://github.com/eternalNight/git-autotester" class="btn btn-primary btn-large">
+	Learn more
+ </a>
+ <a href="/register" class="btn btn-primary btn-large">
+	Register a repo
+ </a>
+</p>
+</div>
+
+<hr />
+<h2>Repo List:</h2>
+<ul class="repo-list">
+	<% @repos.each do |r| %>
+		<% if r[:public] %>
+			<li><a href="/repo/<%= r[:name] %>/"><%= r[:name] %></a></li>
+		<% end %>
+	<% end %>
+</ul>
+<hr />
+<h2>Environment:<h2>
+		<pre><%= @env %></pre>
+<hr />
+<h2>Backend Status:</h2>
+<pre><% @status_line.each do |l| %><%= ol l %><br><% end %></pre>
+
+<!-- Local Variables: -->
+<!-- mode: html -->
+<!-- End: -->

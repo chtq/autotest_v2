@@ -1,0 +1,33 @@
+<script type="text/javascript">
+	setTimeout("location.reload()",40000);
+</script>
+<h1>Test List -- <%= @repo %></h1>
+<table class="table table-striped">
+	<thead>
+		<th>Date</th>
+		<th>Ref</th>
+		<th>Commit</th>
+		<th>Result</th>
+	</thead>
+	<tbody>
+	<% @list.each do |e| %>
+		<tr <%= 'class="error"' unless e[:ok] == "OK"  %> id="<%= e[:tid] %>">
+		<td><%= Time.at(e[:timestamp]).to_datetime.rfc2822 %></td>
+		<td><%= e[:ref][0] %></td>
+		<td><a href="/repo/<%= @repo %>/<%= e[:tid] %>"><%= e[:head][0..6] %></a></td>
+		<td>
+		<% if e[:ok] == "OK" %>
+			<font color=green>OK</font>
+		<% else %>
+			<font color=red>FAIL</font>
+		<% end %>
+		</td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>
+<a href="/">Back</a>
+
+<!-- Local Variables: -->
+<!-- mode: html -->
+<!-- End: -->
