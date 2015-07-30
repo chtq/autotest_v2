@@ -1,0 +1,56 @@
+#!/bin/bash
+
+ABS_PATH=$0
+ABS_DIR=`dirname $ABS_PATH`
+
+COMMAND=$1
+QUEUE=$2
+ARG=$3
+
+if [ ! -n "$QUEUE" ]; then
+    exit 1
+fi
+
+QUEUE_FILE=$ABS_DIR/.$QUEUE.queue
+PENDING_FILE=$ABS_DIR/.$QUEUE.pending
+HISTORY_FILE=$ABS_DIR/.$QUEUE.history
+
+case $COMMAND in
+    append)
+	if [ ! -n "$ARG" ]; then
+	    exit 1
+	fi
+	if [ -f $PENDING_FILE ]; then
+	    echo [`date +"%F %T"`] $ARG >> $PENDING_FILE
+	else
+	    echo [`date +"%F %T"`] $ARG >> $QUEUE_FILE
+	fi
+	;;
+    fetch)
+	touch $QUEUE_FILE
+	touch $PENDING_FILE
+	cat $QUEUE_FILE | sed "s/\[[^]]*\] //"
+	;;
+    archive)
+	touch $QUEUE_FILE
+	cat $QUEUE_FILE >> $HISTORY_FILE
+	;;
+    archive-unique)
+	touch $QUEUE_FILE
+	cat $QUEUE_FILE | sort -s -t ] -k 2 | uniq -s 22 | sort >> $HISTORY_FILE
+	;;
+    clean)
+	rm $HISTORY_FILE
+	;;
+esac
+
+case $COMMAND in
+    archive|archive-unique|flush)
+	rm $QUEUE_FILE
+	if [ -f $PENDING_FILE ]; then
+	    mv $PENDING_FILE $QUEUE_FILE
+	fi
+	;;
+esac
+
+exit 0
