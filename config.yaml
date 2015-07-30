@@ -1,0 +1,58 @@
+:bind: "0.0.0.0"
+:port: 4567
+
+:sleep: 60
+:git_timeout: 60
+:domain_name: "os.cs.tsinghua.edu.cn:3100"
+
+:ping:
+        :backend_addr: "127.0.0.1"
+        :frontend_addr: "127.0.0.1"
+        :port: 3579
+
+:mail:
+        :from: "autotest@os.cs.tsinghua.edu.cn"
+        :cc:   ['chyh1990@gmail.com']
+        :daily_to: ['ucore_dev1@googlegroups.com', 'chyh1990@gmail.com']
+
+:jobs:
+        :daily_report: ["00:00"]
+        :automerge:
+                - :url: "/home/chenyh/os/autobuild_tester"
+                  :hours: 1
+                  :upstream: "origin/master"
+                  :branches: ["m2", "m1"]
+
+:repo_abspath: "/home/chenyh/os/tmp"
+:result_abspath: "/home/ctq/Downloads"
+:repos:
+        - :name: "shujuku"
+          :user: "gx"
+          :url: "git@192.168.0.108:gx/ucore_lab.git"
+          :blacklist:
+          :build_timeout_min: 10
+          :run_timeout_min: 30
+          :nomail: true
+          :public: false
+          :filters:
+                - [ "ext", [".c", ".h", ".S", ".sh", ".s", ""] ]
+
+        - :name: "286260185@qq.com:ucore_lab.git"
+          :url: "https://github.com/chtq/ucore_lab.git"
+          :blacklist:
+          :build_timeout_min: 10
+          :run_timeout_min: 30
+          :nomail: false
+          :public: false
+          :filters:
+                - [ "ext", [".c", ".h", ".S", ".sh", ".s", ".md"] ]
+
+        - :name: "286260185@qq.com:ucore_lab.git"
+          :url: "https://github.com/chtq/ucore_lab.git"
+          :blacklist:
+          :build_timeout_min: 10
+          :run_timeout_min: 30
+          :nomail: false
+          :public: false
+          :filters:
+                - [ "ext", [".c", ".h", ".S", ".sh", ".s", ".md"] ]
